@@ -1,7 +1,5 @@
 const mongoose = require('mongoose');
 const validator = require('../validator/Validators');
-require('mongoose-type-url');
-
 
 const userSchema = new mongoose.Schema({
     name:   {type:String, required:true,validate: validator.stringValidator},
