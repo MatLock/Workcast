@@ -2,6 +2,7 @@ const bodyParser = require('body-parser');
 const express = require('express');
 const userMiddleware = require('./workast/middlewares/UserMiddleware');
 const articleMiddleware = require('./workast/middlewares/ArticleMiddleware');
+const onVerifyAppToken = require('./workast/middlewares/AppAuthMiddleware');
 const userController = require('../src/workast/controller/UserController');
 const articleController = require('../src/workast/controller/ArticleController');
 const mongoose = require('mongoose');
@@ -22,6 +23,7 @@ app.use(bodyParser.urlencoded({extended:true}));
 //MIDDLEWARES
 app.param('user',userMiddleware);
 app.param('article',articleMiddleware);
+app.use(onVerifyAppToken);
 
 // ROUTES
 app.post('/workcast/user/create',userController.createUser);
