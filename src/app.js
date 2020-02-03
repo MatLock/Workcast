@@ -7,11 +7,16 @@ const userController = require('../src/workast/controller/UserController');
 const articleController = require('../src/workast/controller/ArticleController');
 const mongoose = require('mongoose');
 
-const APP_KEY = process.env.APP_KEY;
-
 const app = express();
 
-mongoose.connect('mongodb://localhost:27017/workcast',{ useNewUrlParser: true,useUnifiedTopology: true,'useFindAndModify':true})
+const options = {
+  autoIndex: true,
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+  useFindAndModify:true
+}
+
+mongoose.connect('mongodb://localhost:27017/workcast',options)
   .then(() => console.log('MongoDB Connected...'))
   .catch((err) => console.log(err));
 

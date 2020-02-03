@@ -3,7 +3,7 @@ const validator = require('../validator/Validators')
 
 const articleSchema = new mongoose.Schema({
     userId:  {type:mongoose.Schema.Types.ObjectId,ref:'users'},
-    title:   {type:String,   required:true, validator:validator.titleValidator},
+    title:   {type:String,   required:true,unique : true, validator:validator.titleValidator},
     text:    {type:String,   required:true},
     tags:    [String]
 });
