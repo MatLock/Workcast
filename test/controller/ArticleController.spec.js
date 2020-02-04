@@ -67,7 +67,7 @@ describe('Article Controller', () => {
   });
 
   it('Can be deleted', async () =>{
-    let art = await createArticle('newTitle');
+    let art = await createArticle('newTitle2');
     let req = await request(app)
       .delete(`/workcast/user/${user._id}/article/${art.body._id}`)
       .set('auth_token',APP_TOKEN)
