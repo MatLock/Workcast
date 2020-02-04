@@ -4,23 +4,7 @@ const dbHandler = require('../common/Handler');
 
 const APP_TOKEN = '5CD4ED173E1C95FE763B753A297D5';
 
-beforeAll(async () => {
-  await dbHandler.connect();
-});
 let user;
-
-beforeEach(async () =>{
-  let u = {name: 'test', avatar: 'http://google.com'};
-  let res = await request(app)
-    .post('/workcast/user/create')
-    .set('auth_token',APP_TOKEN)
-    .send(u);
-  user = res.body;
-});
-
-afterAll(async () => await app.close());
-afterEach(async () => await dbHandler.clearDatabase());
-
 const createArticle = async (title) =>{
   let article = {title:title,text:'customText',tags:['tag1']};
   let articleRequest = await request(app)
@@ -38,9 +22,24 @@ const obtainArticle = async (id) =>{
   return articleRequest;
 };
 
+beforeAll(async () => {
+  await dbHandler.connect();
+});
+
+beforeEach(async () =>{
+  let u = {name: 'test', avatar: 'http://google.com'};
+  let res = await request(app)
+    .post('/workcast/user/create')
+    .set('auth_token',APP_TOKEN)
+    .send(u);
+  user = res.body;
+});
+
+afterAll(async () => await app.close());
+afterEach(async () => await dbHandler.clearDatabase());
+
 describe('Article Controller', () => {
   it('Should create a new Article', async () => {
-
     let articleRequest = await createArticle('title');
 
     expect(articleRequest.statusCode).toEqual(201);
@@ -58,7 +57,7 @@ describe('Article Controller', () => {
   it('Can be obtained by tags',async () =>{
     let art = await createArticle('newTitle');
     let req = await request(app)
-      .get(`/workcast/article/all?tags=tag1`)
+      .get(`/workcast/article/all?tags=tag1,tag2`)
       .set('auth_token',APP_TOKEN)
       .send();
 

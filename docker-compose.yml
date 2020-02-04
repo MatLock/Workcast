@@ -1,0 +1,18 @@
+version: '3.3'
+services:
+  mongo:
+    image: mongo
+    ports:
+      - "27017:27017"
+    command: "--logpath=/dev/null"
+
+  app:
+    build: .
+    ports:
+      - "3000:3000"
+    depends_on:
+      - mongo
+    environment:
+      MONGO: 'mongodb://mongo:27017/workcast'
+      APP_TOKEN: '5CD4ED173E1C95FE763B753A297D5'
+      PORT: 3000

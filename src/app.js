@@ -16,7 +16,7 @@ const options = {
   useFindAndModify:true
 }
 
-mongoose.connect('mongodb://localhost:27017/workcast',options)
+mongoose.connect(process.env.MONGO || 'mongodb://localhost:27017/workcast',options)
   .then(() => console.log('MongoDB Connected...'))
   .catch((err) => console.log(err));
 
