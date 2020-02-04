@@ -1,6 +1,6 @@
 const dbHandler = require('../common/Handler');
-const userService = require('../../src/workast/service/UserService');
-const articleService = require('../../src/workast/service/ArticleService');
+const userService = require('../../src/workcast/service/UserService');
+const articleService = require('../../src/workcast/service/ArticleService');
 
 let user = {name:"user",avatar:'http://google.com'};
 

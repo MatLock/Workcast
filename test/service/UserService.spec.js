@@ -1,5 +1,5 @@
 const dbHandler = require('../common/Handler');
-const userService = require('../../src/workast/service/UserService');
+const userService = require('../../src/workcast/service/UserService');
 
 beforeAll(async () => await dbHandler.connect());
 

@@ -1,10 +1,13 @@
 const bodyParser = require('body-parser');
 const express = require('express');
-const userMiddleware = require('./workast/middlewares/UserMiddleware');
-const articleMiddleware = require('./workast/middlewares/ArticleMiddleware');
-const onVerifyAppToken = require('./workast/middlewares/AppAuthMiddleware');
-const userController = require('../src/workast/controller/UserController');
-const articleController = require('../src/workast/controller/ArticleController');
+const swaggerJsDoc = require("swagger-jsdoc");
+const swaggerUi = require("swagger-ui-express");
+
+const userMiddleware = require('./workcast/middlewares/UserMiddleware');
+const articleMiddleware = require('./workcast/middlewares/ArticleMiddleware');
+const onVerifyAppToken = require('./workcast/middlewares/AppAuthMiddleware');
+const userController = require('./workcast/controller/UserController');
+const articleController = require('./workcast/controller/ArticleController');
 const mongoose = require('mongoose');
 
 const app = express();
@@ -14,21 +17,48 @@ const options = {
   useNewUrlParser: true,
   useUnifiedTopology: true,
   useFindAndModify:true
-}
+};
+
+const swaggerOptions = {
+  swaggerDefinition: {
+    info: {
+      title: "Customer API",
+      description: "Customer API Information",
+      contact: {
+        name: "Amazing Developer"
+      },
+      servers: ["http://localhost:3000"]
+    }
+  },
+  apis: ["app.js"]
+};
+
+const swaggerDocs = swaggerJsDoc(swaggerOptions);
 
 mongoose.connect(process.env.MONGO || 'mongodb://localhost:27017/workcast',options)
   .then(() => console.log('MongoDB Connected...'))
   .catch((err) => console.log(err));
 
+const unless = (path, middleware) =>{
+  return (req, res, next) => {
+    if (path === req.path) {
+      return next();
+    } else {
+      return middleware(req, res, next);
+    }
+  };
+};
+
 // CONFIG
 app.set('port',process.env.PORT || 3000);
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended:true}));
+app.use("/workcast/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 
 //MIDDLEWARES
 app.param('user',userMiddleware);
 app.param('article',articleMiddleware);
-app.use(onVerifyAppToken);
+app.use(unless('/workcast/api-docs',onVerifyAppToken));
 
 // ROUTES
 app.post('/workcast/user/create',userController.createUser);

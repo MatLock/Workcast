@@ -1,4 +1,4 @@
-const APP_TOKEN = process.env.APP_TOKEN || '5CD4ED173E1C95FE763B753A297D5';
+const APP_TOKEN = process.env.APP_TOKEN || 'TOKEN123';
 
 const onVerifyAppToken = (req,res,next) =>{
   let token = req.headers.auth_token;
