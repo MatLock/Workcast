@@ -2,7 +2,7 @@ const request = require('supertest');
 const app = require('../../src/server');
 const dbHandler = require('../common/Handler');
 
-const APP_TOKEN = '5CD4ED173E1C95FE763B753A297D5';
+const APP_TOKEN = 'TOKEN123';
 
 beforeAll(async () => {
   await dbHandler.connect();
