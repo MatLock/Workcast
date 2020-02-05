@@ -2,13 +2,13 @@ const bodyParser = require('body-parser');
 const express = require('express');
 const swaggerJsDoc = require("swagger-jsdoc");
 const swaggerUi = require("swagger-ui-express");
+const mongoose = require('mongoose');
 
 const userMiddleware = require('./workcast/middlewares/UserMiddleware');
 const articleMiddleware = require('./workcast/middlewares/ArticleMiddleware');
 const onVerifyAppToken = require('./workcast/middlewares/AppAuthMiddleware');
 const userController = require('./workcast/controller/UserController');
 const articleController = require('./workcast/controller/ArticleController');
-const mongoose = require('mongoose');
 
 const app = express();
 
@@ -30,7 +30,7 @@ const swaggerOptions = {
       servers: ["http://localhost:3000"]
     }
   },
-  apis: ["app.js"]
+  apis: ["./src/*.js","./src/workcast/controller/*js"]
 };
 
 const swaggerDocs = swaggerJsDoc(swaggerOptions);
