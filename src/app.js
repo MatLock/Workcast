@@ -21,11 +21,12 @@ const options = {
 
 const swaggerOptions = {
   swaggerDefinition: {
+    openapi: "3.0.0",
     info: {
       title: "Customer API",
       description: "Customer API Information",
       contact: {
-        name: "Amazing Developer"
+        name: "jfflores90@gmail.com"
       },
       servers: ["http://localhost:3000"]
     }
@@ -61,8 +62,8 @@ app.param('article',articleMiddleware);
 app.use(unless('/workcast/api-docs',onVerifyAppToken));
 
 // ROUTES
-app.post('/workcast/user/create',userController.createUser);
-app.post('/workcast/user/:user/article/create',articleController.createArticle);
+app.post('/workcast/user',userController.createUser);
+app.post('/workcast/user/:user/article',articleController.createArticle);
 app.get('/workcast/user/:user/article/:article',articleController.getArticle);
 app.delete('/workcast/user/:user/article/:article',articleController.deleteArticle);
 app.patch('/workcast/user/:user/article/:article',articleController.updateArticle);
