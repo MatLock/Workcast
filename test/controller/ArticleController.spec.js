@@ -8,7 +8,7 @@ let user;
 const createArticle = async (title) =>{
   let article = {title:title,text:'customText',tags:['tag1']};
   let articleRequest = await request(app)
-    .post(`/workcast/user/${user._id}/article/create`)
+    .post(`/workcast/user/${user._id}/article`)
     .set('auth_token',APP_TOKEN)
     .send(article);
   return articleRequest;
@@ -29,7 +29,7 @@ beforeAll(async () => {
 beforeEach(async () =>{
   let u = {name: 'test', avatar: 'http://google.com'};
   let res = await request(app)
-    .post('/workcast/user/create')
+    .post('/workcast/user')
     .set('auth_token',APP_TOKEN)
     .send(u);
   user = res.body;

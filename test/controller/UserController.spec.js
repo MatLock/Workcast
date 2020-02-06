@@ -14,7 +14,7 @@ afterEach(async () => await dbHandler.clearDatabase());
 describe('User Controller', () => {
   it('Should create a new user', async () => {
     const res = await request(app)
-      .post('/workcast/user/create')
+      .post('/workcast/user')
       .set('auth_token',APP_TOKEN)
       .send({
         name: 'test',
