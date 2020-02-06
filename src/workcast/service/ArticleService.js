@@ -20,8 +20,8 @@ const updateArticle = (newArticle,oldArticle) =>{
   return articleModel.findOneAndUpdate({_id: oldArticle._id}, newArticle, {new: true});
 };
 
-const getArticleById = (id) =>{
-  return articleModel.findOne({_id: id});
+const getArticleById = (id,userId) =>{
+  return articleModel.findOne({_id: id,userId:userId});
 };
 
 const getArticlesByTag = (list) =>{

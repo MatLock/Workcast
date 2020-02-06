@@ -22,7 +22,7 @@ describe('Articles', () => {
 
   it('can be obtained by Id', async () =>{
     let art = await articleService.createArticle(article,user);
-    let artObtained = await articleService.getArticleById(art._id);
+    let artObtained = await articleService.getArticleById(art._id,user._id);
     expect(artObtained._id).toEqual(art._id);
   });
 
